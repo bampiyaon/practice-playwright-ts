@@ -48,3 +48,11 @@ test("Demo Testing #5", async({page}) => {
     // .nth(4) = 3rd elements
     // using when the there are many locators
 })
+
+test("Challenge #1 easy check if the amount of product > 1", async({page}) => {
+    await page.goto("https://www.saucedemo.com/");
+    await page.getByPlaceholder("Username").fill("standard_user");
+    await page.getByPlaceholder("Password").fill("secret_sauce");
+    await page.getByRole("button", {name: "Login"}).click();
+    await expect(page.locator(".inventory_item")).not.toHaveCount(0);
+})

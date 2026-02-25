@@ -1,4 +1,5 @@
 import {expect, test} from "@playwright/test"
+import { buffer } from "node:stream/consumers";
 
 test("Locator", async({page}) =>{
 
@@ -32,4 +33,20 @@ test("Locator Options argument", async ({page}) => {
     await page.locator("button#back-to-products").click();
     await page.locator(".inventory_item_name ", {hasNotText: /Sauce.*/}).click(); 
     //Sauce.* which .* means all straing that start with Sauce
+})
+
+test("Practice getBy method", async({page}) => {
+    await page.goto("https://demo.nopcommerce.com/login");
+    await page.getByLabel("Email:", {exact: true}).fill("test@mail.com");
+    await page.getByPlaceholder("Search store").fill("phone");
+    await page.getByText("Welcome").textContent();
+    await page.getByAltText("nopCommerce demo store").click();
+    await page.getByTitle("Featured products").highlight();
+    await page.getByRole("button", {name: "Add to cart"}).first().click();
+})
+
+test("Practice grtByTestId method", async({page}) => {
+    await page.goto("https://www.saucedemo.com");
+    await page.getByTestId("username").fill("visual_user"); //need to add testIdAttribute: 'data-test' in config file
+    //then using test-data to input for getByTestId
 })
